@@ -1216,3 +1216,70 @@
   }
   
 }
+/* ===== PASSWORD TOGGLE STYLES ===== */
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input {
+  width: 100%;
+  padding-right: 45px; /* Espace pour le bouton */
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: var(--gray-600);
+  transition: var(--transition-fast);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+.password-toggle:hover {
+  background: var(--gray-100);
+  color: var(--primary-blue);
+}
+
+.password-toggle:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.password-toggle:focus {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+}
+
+/* Ajustement pour les champs de mot de passe dans le formulaire */
+.form-group input[type="password"],
+.form-group input[type="text"] {
+  padding-right: 45px;
+}
+
+/* Pour assurer que le bouton est correctement positionné sur mobile */
+@media (max-width: 768px) {
+  .password-toggle {
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    font-size: 1.1rem;
+  }
+  
+  .form-group input[type="password"],
+  .form-group input[type="text"] {
+    padding-right: 40px;
+  }
+}

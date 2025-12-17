@@ -1,4 +1,3 @@
-// Login.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../services/api';
@@ -13,11 +12,9 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // État pour afficher/masquer le mot de passe
 
-  // ❌ Tentatives NON persistantes → reset à chaque reload
   const [attempts, setAttempts] = useState(0);
-
-  // ❌ Blocage NON permanent → reset à chaque reload
   const [isBlocked, setIsBlocked] = useState(false);
 
   const navigate = useNavigate();
@@ -51,7 +48,6 @@ const Login = () => {
       const result = await authAPI.login(email, password);
 
       if (result.success === true) {
-        // ✔️ Reset des tentatives et du blocage
         setAttempts(0);
         setIsBlocked(false);
 
@@ -110,14 +106,25 @@ const Login = () => {
 
             <div className="form-group">
               <label>Mot de passe</label>
-              <input
-                type="password"
-                disabled={loading || isBlocked}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                placeholder="Votre mot de passe"
-              />
+              <div className="password-input-container">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  disabled={loading || isBlocked}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  placeholder="Votre mot de passe"
+                  className="password-input"
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex="-1"
+                >
+                  {showPassword ? "🙈" : "👁️"}
+                </button>
+              </div>
             </div>
 
             <button 
@@ -141,4 +148,3 @@ const Login = () => {
 };
 
 export default Login;
-  

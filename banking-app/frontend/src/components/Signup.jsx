@@ -19,6 +19,8 @@ const Signup = () => {
     confirmPassword: ''
   });
 
+  const [showPassword, setShowPassword] = useState(false); // État pour afficher/masquer le mot de passe
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // État pour afficher/masquer la confirmation
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
@@ -252,15 +254,26 @@ const Signup = () => {
             {/* Password */}
             <div className="form-group">
               <label htmlFor="password">Mot de passe *</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                disabled={loading}
-              />
+              <div className="password-input-container">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                  className="password-input"
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex="-1"
+                >
+                  {showPassword ? "🙈" : "👁️"}
+                </button>
+              </div>
 
               {formData.password && (
                 <>
@@ -285,15 +298,26 @@ const Signup = () => {
             {/* Confirm password */}
             <div className="form-group">
               <label htmlFor="confirmPassword">Confirmer le mot de passe *</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-                disabled={loading}
-              />
+              <div className="password-input-container">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                  className="password-input"
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  tabIndex="-1"
+                >
+                  {showConfirmPassword ? "🙈" : "👁️"}
+                </button>
+              </div>
 
               {formData.confirmPassword && (
                 <div className={`password-match ${passwordMatches ? "ok" : "bad"}`}>
